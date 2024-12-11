@@ -10,6 +10,7 @@ import util.AlertUtil;
 public class UserManagementViewController {
 
     public static void loadUsers(ObservableList<User> users) {
+        users.clear();
         users.addAll(UserController.getAll());
     }
 

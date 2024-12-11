@@ -7,6 +7,7 @@ import model.Event;
 public class EventManagementViewController {
 
     public static void loadEvents(ObservableList<Event> events) {
+        events.clear();
         events.addAll(EventController.getAll());
     }
 
