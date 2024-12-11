@@ -14,6 +14,8 @@ public class StageManager {
     private final Stage primaryStage;
     private final Map<String, SFView> sceneMap;
 
+    private SFView previousView;
+
     public StageManager(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.sceneMap = new HashMap<>();
@@ -44,6 +46,7 @@ public class StageManager {
             ((Refreshable) sfView).refreshData();
         }
 
+        previousView = sfView;
         primaryStage.setScene(sfView.getScene());
         primaryStage.setTitle(sfView.getWindowTitle());
         primaryStage.show();
@@ -51,6 +54,10 @@ public class StageManager {
 
     public SceneFactory getSceneFactory() {
         return new SceneFactory();
+    }
+
+    public SFView getPreviousView() {
+        return previousView;
     }
 
     public static class SceneFactory {
