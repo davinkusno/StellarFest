@@ -64,6 +64,14 @@ public class RegisterView extends SFView {
         borderPane.setCenter(formContainer);
     }
 
+    @Override
+    public void destroyView() {
+        this.emailInput.clear();
+        this.usernameInput.clear();
+        this.passwordInput.clear();
+        this.roleSelector.getSelectionModel().clearSelection();
+    }
+
     private Button createRegisterButton() {
         Button registerButton = new Button("Register");
         registerButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");

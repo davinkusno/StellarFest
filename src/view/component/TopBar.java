@@ -11,30 +11,24 @@ import view.auth.login.LoginView;
 
 public class TopBar {
 
-    private static Pane topBar = null;
-
-    public static Pane getTopBar() {
-        if (topBar == null) {
-            buildTopBar();
-        }
-
-        return topBar;
+    public static Pane getTopBar(Class<? extends SFView> backViewClass) {
+        return buildTopBar(backViewClass);
     }
 
-    private static void buildTopBar() {
+    private static Pane buildTopBar(Class<? extends SFView> backViewClass) {
         HBox topBarContainer = new HBox(10);
         topBarContainer.setPadding(new Insets(10, 20, 10, 20));
         topBarContainer.setStyle("-fx-background-color: #f0f0f0;");
         topBarContainer.setPrefHeight(50);
 
-        Button backButton = new Button("Back");
-        backButton.setPrefWidth(100);
-        backButton.setOnMouseClicked(e -> {
-            StageManager stageManager = StageManager.getInstance();
-
-            SFView previousView = stageManager.getPreviousView();
-            stageManager.switchScene(previousView.getViewName());
-        });
+        if (backViewClass != null) {
+            Button backButton = new Button("Back");
+            backButton.setPrefWidth(100);
+            backButton.setOnMouseClicked(e -> {
+                StageManager.getInstance().switchScene(backViewClass);
+            });
+            topBarContainer.getChildren().add(backButton);
+        }
 
         Button logoutButton = new Button("Logout");
         logoutButton.setPrefWidth(100);
@@ -42,6 +36,9 @@ public class TopBar {
             UserDatastore.getInstance().setCurrentUser(null);
             StageManager.getInstance().switchScene(LoginView.class);
         });
+        topBarContainer.getChildren().add(logoutButton);
+
+        return topBarContainer;
     }
 
 }

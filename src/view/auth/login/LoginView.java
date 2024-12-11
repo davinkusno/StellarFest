@@ -55,6 +55,12 @@ public class LoginView extends SFView {
         borderPane.setCenter(formContainer);
     }
 
+    @Override
+    public void destroyView() {
+        this.emailInput.clear();
+        this.passwordInput.clear();
+    }
+
     private Button createLoginButton() {
         Button registerButton = new Button("Login");
         registerButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");

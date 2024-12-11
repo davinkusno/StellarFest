@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import view.SFView;
 import view.StageManager;
+import view.component.TopBar;
 
 public class AdminHomeView extends SFView {
 
@@ -36,6 +37,14 @@ public class AdminHomeView extends SFView {
 
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
+
+        Pane topBar = TopBar.getTopBar(null);
+        borderPane.setTop(topBar);
+    }
+
+    @Override
+    public void destroyView() {
+        // No cleanup required
     }
 
     private Button createManageEventButton() {

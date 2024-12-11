@@ -24,6 +24,7 @@ import util.StringUtil;
 import view.Refreshable;
 import view.SFView;
 import view.StageManager;
+import view.component.TopBar;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,11 +45,6 @@ public class EventManagementView extends SFView implements Refreshable {
     }
 
     @Override
-    public void refreshData() {
-        EventManagementViewController.loadEvents(events);
-    }
-
-    @Override
     protected void prepareView(Pane root) {
         BorderPane borderPane = (BorderPane) root;
 
@@ -61,6 +57,19 @@ public class EventManagementView extends SFView implements Refreshable {
                 showEventDetailsWindow(selectedEvent);
             }
         });
+
+        Pane topBar = TopBar.getTopBar(AdminHomeView.class);
+        borderPane.setTop(topBar);
+    }
+
+    @Override
+    public void destroyView() {
+        // No cleanup required
+    }
+
+    @Override
+    public void refreshData() {
+        EventManagementViewController.loadEvents(events);
     }
 
     private TableView<Event> createEventTable() {

@@ -13,11 +13,13 @@ public abstract class SFView {
         this.stageManager = stageManager;
     }
 
-    protected abstract void prepareView(Pane root);
-
     public static String getViewNameOf(Class<? extends SFView> viewClass) {
         return viewClass.getSimpleName();
     }
+
+    public abstract void destroyView();
+
+    protected abstract void prepareView(Pane root);
 
     public String getViewName() {
         return this.getClass().getSimpleName();

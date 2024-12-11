@@ -20,6 +20,7 @@ import model.user.impl.VendorUser;
 import view.Refreshable;
 import view.SFView;
 import view.StageManager;
+import view.component.TopBar;
 
 public class UserManagementView extends SFView implements Refreshable {
 
@@ -34,11 +35,6 @@ public class UserManagementView extends SFView implements Refreshable {
 
         this.windowTitle = "Manage Users";
         this.scene = stageManager.getSceneFactory().createScene(root);
-    }
-
-    @Override
-    public void refreshData() {
-        UserManagementViewController.loadUsers(users);
     }
 
     @Override
@@ -57,6 +53,19 @@ public class UserManagementView extends SFView implements Refreshable {
         buttonContainer.setPadding(new Insets(10));
 
         borderPane.setBottom(buttonContainer);
+
+        Pane topBar = TopBar.getTopBar(AdminHomeView.class);
+        borderPane.setTop(topBar);
+    }
+
+    @Override
+    public void destroyView() {
+        // No cleanup required
+    }
+
+    @Override
+    public void refreshData() {
+        UserManagementViewController.loadUsers(users);
     }
 
     private TableView<User> createUserTable() {
