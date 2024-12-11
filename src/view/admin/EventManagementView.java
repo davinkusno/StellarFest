@@ -126,7 +126,7 @@ public class EventManagementView extends SFView implements Refreshable {
         Label label = new Label("Organizer:");
         label.setStyle("-fx-font-weight: bold; -fx-min-width: 100px;");
 
-        VBox organizerDetails = new VBox(5);
+        HBox organizerDetails = new HBox(5);
         organizerDetails.getChildren().addAll(
                 createDetailRow("ID:", String.valueOf(organizer.getId())),
                 createDetailRow("Username:", organizer.getUsername()),
@@ -145,7 +145,7 @@ public class EventManagementView extends SFView implements Refreshable {
         System.out.println("Attendees size: " + attendees.size());
         System.out.println("Attendees: " + attendees);
 
-        VBox vendorDetails = new VBox(5);
+        HBox vendorDetails = new HBox(5);
         Label vendorLabel = new Label("Vendors:");
         vendorLabel.setStyle("-fx-font-weight: bold; -fx-min-width: 100px;");
 
@@ -161,7 +161,7 @@ public class EventManagementView extends SFView implements Refreshable {
             );
         }
 
-        VBox guestDetails = new VBox(5);
+        HBox guestDetails = new HBox(5);
         Label guestLabel = new Label("Guests:");
         guestLabel.setStyle("-fx-font-weight: bold; -fx-min-width: 100px;");
 
