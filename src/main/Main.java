@@ -8,6 +8,7 @@ import view.admin.EventManagementView;
 import view.admin.UserManagementView;
 import view.auth.login.LoginView;
 import view.auth.register.RegisterView;
+import view.common.EditProfileView;
 
 public class Main extends Application {
 
@@ -29,6 +30,7 @@ public class Main extends Application {
     private void registerViews() {
         this.stageManager.addScene(new LoginView(this.stageManager));
         this.stageManager.addScene(new RegisterView(this.stageManager));
+        this.stageManager.addScene(new EditProfileView(this.stageManager));
 
         this.stageManager.addScene(new AdminHomeView(stageManager));
         this.stageManager.addScene(new UserManagementView(stageManager));

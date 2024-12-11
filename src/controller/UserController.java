@@ -107,6 +107,16 @@ public class UserController {
         return null;
     }
 
+    public static boolean updateUser(long userId, String email, String username, String password) {
+        String query = "UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?";
+        try {
+            Connect.getInstance().executeUpdate(query, email, username, password, userId);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static boolean isDuplicate(String column, String value) {
         String query = "SELECT " + column + " FROM users WHERE " + column + " = ?";
         try (Results results = Connect.getInstance().executeQuery(query, value)) {

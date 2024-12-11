@@ -35,6 +35,9 @@ public class AdminHomeView extends SFView {
         Button manageUserButton = this.createManageUserButton();
         formContainer.getChildren().add(manageUserButton);
 
+        Button editProfileButton = this.createEditProfileButton();
+        formContainer.getChildren().add(editProfileButton);
+
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
 
@@ -64,6 +67,17 @@ public class AdminHomeView extends SFView {
 
         button.setOnMouseClicked(e -> {
             AdminHomeViewController.handleManageUserRedirect();
+        });
+
+        return button;
+    }
+
+    private Button createEditProfileButton() {
+        Button button = new Button("Edit Profile");
+        button.setPrefWidth(200);
+
+        button.setOnMouseClicked(e -> {
+            AdminHomeViewController.handleEditProfile();
         });
 
         return button;
