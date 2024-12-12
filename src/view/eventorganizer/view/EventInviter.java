@@ -17,6 +17,7 @@ import model.Event;
 import model.user.User;
 import util.Callable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ public class EventInviter {
 
     private final ObservableList<User> users;
     private final Stage stage;
+    private final List<User> checkedUsers;
 
     private TableView<User> tableView;
 
@@ -38,6 +40,7 @@ public class EventInviter {
 
         this.users = FXCollections.observableArrayList();
         this.stage = new Stage();
+        this.checkedUsers = new ArrayList<>();
 
         this.loadData();
         this.prepareView();
@@ -48,6 +51,7 @@ public class EventInviter {
     }
 
     private void loadData() {
+        checkedUsers.clear();
         EventInviterController.loadUsers(event, users, role);
     }
 
@@ -123,7 +127,19 @@ public class EventInviter {
                     setGraphic(null);
                 } else {
                     checkBox.setSelected(invited);
-                    checkBox.setDisable(true);
+                    checkBox.setDisable(invited);
+
+                    User user = getTableView().getItems().get(getIndex());
+                    checkBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
+                        if (isNowSelected) {
+                            if (!checkedUsers.contains(user)) {
+                                checkedUsers.add(user);
+                            }
+                        } else {
+                            checkedUsers.remove(user);
+                        }
+                    });
+
                     setGraphic(checkBox);
                 }
             }
@@ -137,7 +153,6 @@ public class EventInviter {
         saveButton.setPrefWidth(200);
 
         saveButton.setOnMouseClicked(e -> {
-            List<User> checkedUsers = getCheckedUsers(tableView, event);
             EventInviterController.inviteUsers(event, checkedUsers);
 
             this.onComplete.call();
@@ -145,18 +160,6 @@ public class EventInviter {
         });
 
         return saveButton;
-    }
-
-    private List<User> getCheckedUsers(TableView<User> tableView, Event event) {
-        List<Long> invitedUserIds = event.getInvitations().getValue()
-                .stream()
-                .map(invitation -> invitation.getUser().getId())
-                .collect(Collectors.toList());
-
-        return tableView.getItems()
-                .stream()
-                .filter(user -> invitedUserIds.contains(user.getId()))
-                .collect(Collectors.toList());
     }
 
 
