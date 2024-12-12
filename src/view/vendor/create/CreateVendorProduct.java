@@ -74,9 +74,12 @@ public class CreateVendorProduct {
         saveButton.setPrefWidth(200);
 
         saveButton.setOnMouseClicked(e -> {
-            CreateVendorProductController.saveVendorProduct(this.user, this.nameInput, this.descriptionInput);
-            this.onComplete.call();
-            stage.close();
+            CreateVendorProductController.saveVendorProduct(this.user, this.nameInput, this.descriptionInput, () -> {
+                this.nameInput.clear();
+                this.descriptionInput.clear();
+                this.onComplete.call();
+                stage.close();
+            });
         });
 
         return saveButton;
