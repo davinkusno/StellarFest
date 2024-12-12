@@ -79,7 +79,7 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
                 createAttendeeDetailRow(event.getAttendees().getValue())
         );
 
-        Scene detailsScene = new Scene(detailsContainer, 400, 300);
+        Scene detailsScene = new Scene(detailsContainer, 800, 400);
         detailsStage.setScene(detailsScene);
 
         detailsStage.show();
@@ -119,6 +119,7 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
         VBox vendorDetails = new VBox(5);
         Label vendorLabel = new Label("Vendors:");
         vendorLabel.setStyle("-fx-font-weight: bold; -fx-min-width: 100px;");
+        vendorDetails.getChildren().add(vendorLabel);
 
         List<User> vendors = attendees.stream()
                 .filter(user -> user instanceof VendorUser)
@@ -135,6 +136,7 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
         VBox guestDetails = new VBox(5);
         Label guestLabel = new Label("Guests:");
         guestLabel.setStyle("-fx-font-weight: bold; -fx-min-width: 100px;");
+        guestDetails.getChildren().add(guestLabel);
 
         List<User> guests = attendees.stream()
                 .filter(user -> user instanceof GuestUser)

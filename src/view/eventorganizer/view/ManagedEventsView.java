@@ -35,9 +35,11 @@ public class ManagedEventsView extends SFEventTableView {
         borderPane.setCenter(eventTable);
 
         this.eventTable.setOnMouseClicked(event -> {
-            Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
-            if (selectedEvent != null) {
-                showEventDetailsWindow(selectedEvent);
+            if (event.getClickCount() == 2) {
+                Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+                if (selectedEvent != null) {
+                    showEventDetailsWindow(selectedEvent);
+                }
             }
         });
 
