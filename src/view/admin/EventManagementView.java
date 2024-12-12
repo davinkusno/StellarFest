@@ -1,13 +1,11 @@
 package view.admin;
 
 import controller.view.admin.EventManagementViewController;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -20,10 +18,10 @@ import model.user.impl.EOUser;
 import model.user.impl.GuestUser;
 import model.user.impl.VendorUser;
 import util.DateUtil;
-import util.StringUtil;
 import view.Refreshable;
 import view.SFView;
 import view.StageManager;
+import view.component.EventTable;
 import view.component.TopBar;
 
 import java.util.List;
@@ -48,7 +46,7 @@ public class EventManagementView extends SFView implements Refreshable {
     protected void prepareView(Pane root) {
         BorderPane borderPane = (BorderPane) root;
 
-        this.eventTable = createEventTable();
+        this.eventTable = EventTable.createEventTable(events);
         borderPane.setCenter(eventTable);
 
         this.eventTable.setOnMouseClicked(event -> {
@@ -64,37 +62,12 @@ public class EventManagementView extends SFView implements Refreshable {
 
     @Override
     public void destroyView() {
-        // No cleanup required
+        events.clear();
     }
 
     @Override
     public void refreshData() {
         EventManagementViewController.loadEvents(events);
-    }
-
-    private TableView<Event> createEventTable() {
-        TableView<Event> tableView = new TableView<>();
-
-        TableColumn<Event, Long> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getId()));
-
-        TableColumn<Event, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getName()));
-
-        TableColumn<Event, String> dateColumn = new TableColumn<>("Date");
-        dateColumn.setCellValueFactory(cellData ->
-                new ReadOnlyObjectWrapper<>(DateUtil.formatDate(cellData.getValue().getDate(), DateUtil.DATE_FORMAT)));
-
-        TableColumn<Event, String> locationColumn = new TableColumn<>("Location");
-        locationColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(StringUtil.truncate(cellData.getValue().getLocation(), 200)));
-
-        TableColumn<Event, String> descriptionColumn = new TableColumn<>("Description");
-        descriptionColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(StringUtil.truncate(cellData.getValue().getDescription(), 200)));
-
-        tableView.getColumns().addAll(idColumn, nameColumn, dateColumn, locationColumn, descriptionColumn);
-        tableView.setItems(events);
-
-        return tableView;
     }
 
     private void showEventDetailsWindow(Event event) {
