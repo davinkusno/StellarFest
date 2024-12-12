@@ -2,6 +2,7 @@ package model.user.impl;
 
 import model.user.User;
 import view.SFView;
+import view.eventorganizer.EOHomeView;
 
 public class EOUser extends User {
     public EOUser(long id) {
@@ -14,6 +15,6 @@ public class EOUser extends User {
 
     @Override
     public Class<? extends SFView> getHomeView() {
-        return null;
+        return EOHomeView.class;
     }
 }
