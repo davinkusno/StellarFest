@@ -32,6 +32,7 @@ public abstract class SFFormView extends SFView {
         TextField textField;
         try {
             textField = textFieldClass.getDeclaredConstructor().newInstance();
+            textField.setPrefWidth(200);
             row.getChildren().add(textField);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
                  NoSuchMethodException e) {

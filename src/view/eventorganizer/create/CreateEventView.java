@@ -110,7 +110,7 @@ public class CreateEventView extends SFFormView {
     }
 
     private HBox createDatePicker() {
-        HBox row = new HBox(15);
+        HBox row = new HBox(10);
         row.setAlignment(Pos.CENTER);
 
         Label label = new Label("Date");
@@ -118,6 +118,8 @@ public class CreateEventView extends SFFormView {
         row.getChildren().add(label);
 
         DatePicker datePicker = new DatePicker();
+        datePicker.setMaxWidth(200);
+        datePicker.setPrefWidth(200);
         row.getChildren().add(datePicker);
         this.dateInput = datePicker;
 
