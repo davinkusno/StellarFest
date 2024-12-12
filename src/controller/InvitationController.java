@@ -74,6 +74,15 @@ public class InvitationController {
         return success;
     }
 
+    public static void delete(long invitationId) {
+        String query = "DELETE FROM invitations WHERE id = ?";
+        try {
+            Connect.getInstance().executeUpdate(query, invitationId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static Invitation newInvitation(long id, long eventId, long userId) {
         Invitation invitation = new Invitation(id);
 
@@ -85,6 +94,4 @@ public class InvitationController {
 
         return invitation;
     }
-
-
 }

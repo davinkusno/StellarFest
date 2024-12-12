@@ -25,4 +25,21 @@ public class EventAttendeeController {
         return vendorIds;
     }
 
+    public static void addAttendee(long id, long userId) {
+        String query = "INSERT INTO event_attendees (event_id, user_id) VALUES (?, ?)";
+        try {
+            Connect.getInstance().executeUpdate(query, id, userId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void removeAttendee(long id, long userId) {
+        String query = "DELETE FROM event_attendees WHERE event_id = ? AND user_id = ?";
+        try {
+            Connect.getInstance().executeUpdate(query, id, userId);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

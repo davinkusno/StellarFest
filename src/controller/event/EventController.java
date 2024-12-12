@@ -128,7 +128,17 @@ public class EventController {
         event.setInvitations(invites);
 
         List<Long> attendees = EventAttendeeController.getAttendeesForEvent(id);
-        JoinFields<User> attendeeUsers = new JoinFields<>(attendees, () -> UserController.getMany(attendees));
+        JoinFields<User> attendeeUsers = new JoinFields<>(attendees,
+                () -> UserController.getMany(attendees),
+                (user) -> {
+                    EventAttendeeController.addAttendee(id, user.getId());
+                    return UserController.getMany(attendees);
+                },
+                (user) -> {
+                    EventAttendeeController.removeAttendee(id, user.getId());
+                    return UserController.getMany(attendees);
+                }
+        );
         event.setAttendees(attendeeUsers);
 
         return event;
