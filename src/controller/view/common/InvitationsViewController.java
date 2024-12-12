@@ -16,6 +16,8 @@ public class InvitationsViewController {
     public static void acceptInvitation(Invitation invitation, User user) {
         Event event = invitation.getEvent().getValue();
         event.getAttendees().add(user);
+
+        InvitationController.delete(invitation.getId());
     }
 
     public static void deleteInvitation(Invitation invitation) {
