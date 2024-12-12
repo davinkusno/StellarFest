@@ -98,7 +98,7 @@ public class VendorProductController {
         return createVendorProduct(id, name, description, vendorId);
     }
 
-    private static VendorProduct createVendorProduct(long id, String name, String description, long vendorId) {
+    public static VendorProduct createVendorProduct(long id, String name, String description, long vendorId) {
         VendorProduct vendorProduct = new VendorProduct(id, name, description);
 
         JoinField<VendorUser> vendorUserJoinField = new JoinField<>(vendorId, () -> (VendorUser) UserController.getOne(vendorId));

@@ -1,7 +1,9 @@
 package controller.view.vendor.create;
 
+import controller.VendorProductController;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import model.VendorProduct;
 import model.user.impl.VendorUser;
 import util.AlertUtil;
 import util.Callable;
@@ -37,8 +39,8 @@ public class CreateVendorProductController {
     }
 
     private static boolean saveProduct(VendorUser user, String name, String description) {
-        // Save the product
-        return true;
+        VendorProduct vendorProduct = VendorProductController.createVendorProduct(0, name, description, user.getId());
+        return VendorProductController.save(vendorProduct);
     }
 
 }
