@@ -51,6 +51,12 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
         TableColumn<Event, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(StringUtil.truncate(cellData.getValue().getDescription(), 200)));
 
+        idColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.1));
+        nameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.2));
+        dateColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.1));
+        locationColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.2));
+        descriptionColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(0.4));
+
         tableView.getColumns().addAll(idColumn, nameColumn, dateColumn, locationColumn, descriptionColumn);
         tableView.setItems(events);
 
