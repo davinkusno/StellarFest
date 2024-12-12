@@ -12,6 +12,7 @@ import model.user.User;
 import model.user.impl.EOUser;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,15 +26,8 @@ public class EventController {
         try (Results results = Connect.getInstance().executeQuery(query)) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
-                long id = set.getLong("id");
-                String name = set.getString("name");
-                LocalDate date = set.getObject("date", LocalDate.class);
-                String location = set.getString("location");
-                String description = set.getString("description");
-
-                long organizerId = set.getLong("organizer_id");
-
-                events.add(EventController.newEvent(id, name, date, location, description, organizerId));
+                Event event = eventFromResultSet(set);
+                events.add(event);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -47,14 +41,8 @@ public class EventController {
         try (Results results = Connect.getInstance().executeQuery(query, id)) {
             ResultSet set = results.getResultSet();
             if (set.next()) {
-                String name = set.getString("name");
-                LocalDate date = set.getObject("date", LocalDate.class);
-                String location = set.getString("location");
-                String description = set.getString("description");
-
-                long organizerId = set.getLong("organizer_id");
-
-                return EventController.newEvent(id, name, date, location, description, organizerId);
+                Event event = eventFromResultSet(set);
+                return event;
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -74,21 +62,41 @@ public class EventController {
         try (Results results = Connect.getInstance().executeQuery(query, ids.toArray())) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
-                long id = set.getLong("id");
-                String name = set.getString("name");
-                LocalDate date = set.getObject("date", LocalDate.class);
-                String location = set.getString("location");
-                String description = set.getString("description");
-
-                long organizerId = set.getLong("organizer_id");
-
-                events.add(EventController.newEvent(id, name, date, location, description, organizerId));
+                Event event = eventFromResultSet(set);
+                events.add(event);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         return events;
+    }
+
+    public static List<Event> getForEventOrganizer(long organizerId) {
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT * FROM events WHERE organizer_id = ?";
+        try (Results results = Connect.getInstance().executeQuery(query, organizerId)) {
+            ResultSet set = results.getResultSet();
+            while (set.next()) {
+                Event event = eventFromResultSet(set);
+                events.add(event);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return events;
+    }
+
+    private static Event eventFromResultSet(ResultSet set) throws SQLException {
+        long id = set.getLong("id");
+        String name = set.getString("name");
+        LocalDate date = set.getObject("date", LocalDate.class);
+        String location = set.getString("location");
+        String description = set.getString("description");
+        long organizerId = set.getLong("organizer_id");
+
+        return EventController.newEvent(id, name, date, location, description, organizerId);
     }
 
     private static Event newEvent(long id, String name, LocalDate date, String location, String description, long organizerId) {
