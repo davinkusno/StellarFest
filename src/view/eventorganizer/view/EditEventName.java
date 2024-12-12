@@ -52,6 +52,7 @@ public class EditEventName {
     private HBox createButtonContainer() {
         HBox buttonContainer = new HBox(15);
         buttonContainer.setAlignment(Pos.CENTER);
+        buttonContainer.setPadding(new Insets(20));
 
         Button saveButton = this.createSaveButton();
         buttonContainer.getChildren().add(saveButton);
