@@ -9,6 +9,7 @@ import model.user.impl.VendorUser;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class VendorProductController {
@@ -18,6 +19,27 @@ public class VendorProductController {
 
         String query = "SELECT * FROM vendor_product";
         try (Results results = Connect.getInstance().executeQuery(query)) {
+            ResultSet set = results.getResultSet();
+            while (set.next()) {
+                VendorProduct vendorProduct = fromResultSet(set);
+                vendorProducts.add(vendorProduct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return vendorProducts;
+    }
+
+    public static List<VendorProduct> getMany(List<Long> ids) {
+        List<VendorProduct> vendorProducts = new ArrayList<>();
+        if (ids == null || ids.isEmpty()) {
+            return vendorProducts;
+        }
+
+        String placeholders = String.join(",", Collections.nCopies(ids.size(), "?"));
+        String query = "SELECT * FROM vendor_product WHERE id IN (" + placeholders + ")";
+        try (Results results = Connect.getInstance().executeQuery(query, ids.toArray())) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
                 VendorProduct vendorProduct = fromResultSet(set);
@@ -84,5 +106,4 @@ public class VendorProductController {
 
         return vendorProduct;
     }
-
 }

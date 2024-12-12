@@ -4,6 +4,8 @@ import datastore.UserDatastore;
 import driver.Connect;
 import driver.Results;
 import enums.Role;
+import model.VendorProduct;
+import model.join.JoinFields;
 import model.user.User;
 import model.user.impl.AdminUser;
 import model.user.impl.EOUser;
@@ -14,6 +16,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserController {
 
@@ -172,7 +175,15 @@ public class UserController {
                 user = new EOUser(id, email, username);
                 break;
             case VENDOR:
-                user = new VendorUser(id, email, username);
+                VendorUser vendorUser = new VendorUser(id, email, username);
+
+                List<VendorProduct> vendorProducts = VendorProductController.getForUser(id);
+                List<Long> productIds = vendorProducts.stream().map(VendorProduct::getId).collect(Collectors.toList());
+
+                JoinFields<VendorProduct> vendorProductJoinFields = new JoinFields<>(productIds, () -> VendorProductController.getMany(productIds));
+                vendorUser.setVendorProducts(vendorProductJoinFields);
+
+                user = vendorUser;
                 break;
             case GUEST:
                 user = new GuestUser(id, email, username);
