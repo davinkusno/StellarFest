@@ -9,6 +9,7 @@ import view.admin.UserManagementView;
 import view.auth.login.LoginView;
 import view.auth.register.RegisterView;
 import view.common.EditProfileView;
+import view.common.InvitationsView;
 import view.common.InvitedEventsView;
 import view.eventorganizer.EOHomeView;
 import view.eventorganizer.create.CreateEventView;
@@ -47,6 +48,7 @@ public class Main extends Application {
         this.stageManager.addScene(new ManagedEventsView(stageManager));
 
         this.stageManager.addScene(new InvitedEventsView(stageManager));
+        this.stageManager.addScene(new InvitationsView(stageManager));
 
         this.stageManager.addScene(new VendorHomeView(stageManager));
 
