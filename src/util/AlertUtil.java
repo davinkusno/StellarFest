@@ -14,7 +14,7 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
-    public static void showInfo(String header, String content, AlertCallback callback) {
+    public static void showInfo(String header, String content, Callable callback) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
         alert.setHeaderText(header);
@@ -33,7 +33,7 @@ public class AlertUtil {
         alert.showAndWait();
     }
 
-    public static void showError(String header, String content, AlertCallback okCallback, AlertCallback cancelCallback) {
+    public static void showError(String header, String content, Callable okCallback, Callable cancelCallback) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
@@ -46,10 +46,6 @@ public class AlertUtil {
                 cancelCallback.call();
             }
         });
-    }
-
-    public interface AlertCallback {
-        void call();
     }
 
 }
