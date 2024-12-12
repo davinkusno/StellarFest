@@ -60,7 +60,7 @@ public class UserManagementView extends SFView implements Refreshable {
 
     @Override
     public void destroyView() {
-        // No cleanup required
+        users.clear();
     }
 
     @Override
