@@ -92,7 +92,7 @@ public class VendorProductsView extends SFView implements Refreshable {
     }
 
     private Button createAddButton() {
-        Button addButton = new Button("Save");
+        Button addButton = new Button("Add New Product");
         addButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");
         addButton.setPrefWidth(200);
 
