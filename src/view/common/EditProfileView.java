@@ -89,6 +89,11 @@ public class EditProfileView extends SFView implements Refreshable {
 
         Pane topBar = TopBar.getTopBar(currentUser.getHomeView());
         this.root.setTop(topBar);
+
+        this.emailInput.setText(currentUser.getEmail());
+        this.usernameInput.setText(currentUser.getUsername());
+        this.oldPasswordInput.clear();
+        this.newPasswordInput.clear();
     }
 
     private HBox createEmailInput() {
