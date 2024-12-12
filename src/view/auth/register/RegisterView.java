@@ -9,14 +9,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import view.Destroyable;
-import view.SFView;
+import view.SFFormView;
 import view.StageManager;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RegisterView extends SFView implements Destroyable {
+public class RegisterView extends SFFormView {
 
     private TextField emailInput;
     private TextField usernameInput;
@@ -43,14 +42,14 @@ public class RegisterView extends SFView implements Destroyable {
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
         formContainer.getChildren().add(titleLabel);
 
-        HBox emailRow = this.createEmailInput();
-        formContainer.getChildren().add(emailRow);
+        FormRow emailRow = this.createTextField("Email", TextField.class, formContainer);
+        this.emailInput = emailRow.getTextField();
 
-        HBox usernameRow = this.createUsernameInput();
-        formContainer.getChildren().add(usernameRow);
+        FormRow usernameRow = this.createTextField("Username", TextField.class, formContainer);
+        this.usernameInput = usernameRow.getTextField();
 
-        HBox passwordRow = this.createPasswordInput();
-        formContainer.getChildren().add(passwordRow);
+        FormRow passwordRow = this.createTextField("Password", PasswordField.class, formContainer);
+        this.passwordInput = (PasswordField) passwordRow.getTextField();
 
         HBox roleRow = this.createRoleSelector();
         formContainer.getChildren().add(roleRow);
@@ -99,48 +98,6 @@ public class RegisterView extends SFView implements Destroyable {
         });
 
         return loginRedirectLabel;
-    }
-
-    private HBox createEmailInput() {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Email");
-        label.setMinWidth(100);
-        row.getChildren().add(label);
-
-        this.emailInput = new TextField();
-        row.getChildren().add(this.emailInput);
-
-        return row;
-    }
-
-    private HBox createUsernameInput() {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Username");
-        label.setMinWidth(100);
-        row.getChildren().add(label);
-
-        this.usernameInput = new TextField();
-        row.getChildren().add(this.usernameInput);
-
-        return row;
-    }
-
-    private HBox createPasswordInput() {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Password");
-        label.setMinWidth(100);
-        row.getChildren().add(label);
-
-        this.passwordInput = new PasswordField();
-        row.getChildren().add(this.passwordInput);
-
-        return row;
     }
 
     private HBox createRoleSelector() {
