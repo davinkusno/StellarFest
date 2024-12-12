@@ -1,6 +1,6 @@
 package view.common;
 
-import controller.view.vendor.view.InvitedEventsViewController;
+import controller.view.common.InvitedEventsViewController;
 import datastore.UserDatastore;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;

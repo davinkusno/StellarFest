@@ -1,4 +1,4 @@
-package controller.view.vendor.view;
+package controller.view.common;
 
 import controller.event.EventController;
 import javafx.collections.ObservableList;
