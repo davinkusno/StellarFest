@@ -4,10 +4,11 @@ import controller.event.EventController;
 import javafx.scene.control.TextField;
 import model.Event;
 import util.AlertUtil;
+import util.Callable;
 
 public class EditEventNameController {
 
-    public static void saveEventName(Event event, TextField nameInput) {
+    public static void saveEventName(Event event, TextField nameInput, Callable refreshCallable) {
         String name = nameInput.getText();
 
         if (name.isEmpty()) {
@@ -27,7 +28,7 @@ public class EditEventNameController {
             return;
         }
 
-        AlertUtil.showInfo("Event updated", "Event name has been updated successfully");
+        AlertUtil.showInfo("Event updated", "Event name has been updated successfully", refreshCallable);
     }
 
 }

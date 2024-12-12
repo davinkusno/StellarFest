@@ -69,9 +69,11 @@ public class EditEventName {
         saveButton.setPrefWidth(200);
 
         saveButton.setOnMouseClicked(e -> {
-            EditEventNameController.saveEventName(this.event, this.nameInput);
-            this.onComplete.call();
-            stage.close();
+            EditEventNameController.saveEventName(this.event, this.nameInput, () -> {
+                this.nameInput.clear();
+                this.onComplete.call();
+                stage.close();
+            });
         });
 
         return saveButton;
