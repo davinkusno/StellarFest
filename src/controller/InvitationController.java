@@ -55,6 +55,25 @@ public class InvitationController {
         return inviteIds;
     }
 
+    public static List<Invitation> getInvitationsForUser(long userId) {
+        List<Invitation> invitations = new ArrayList<>();
+
+        String query = "SELECT * FROM invitations WHERE user_id = ?";
+        try (Results results = Connect.getInstance().executeQuery(query, userId)) {
+            ResultSet set = results.getResultSet();
+            while (set.next()) {
+                long id = set.getLong("id");
+                long eventId = set.getLong("event_id");
+
+                invitations.add(InvitationController.newInvitation(id, eventId, userId));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return invitations;
+    }
+
     public static boolean save(Invitation invitation) {
         String query = "INSERT INTO invitations (event_id, user_id) VALUES (?, ?)";
         try {
