@@ -1,6 +1,6 @@
 package view;
 
-public interface Refreshable {
+public interface Refreshable extends Destroyable {
 
     void refreshData();
 

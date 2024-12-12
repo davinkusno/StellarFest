@@ -17,8 +17,6 @@ public abstract class SFView {
         return viewClass.getSimpleName();
     }
 
-    public abstract void destroyView();
-
     protected abstract void prepareView(Pane root);
 
     public String getViewName() {

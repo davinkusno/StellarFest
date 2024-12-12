@@ -79,7 +79,10 @@ public class EditProfileView extends SFView implements Refreshable {
 
     @Override
     public void destroyView() {
-
+        this.emailInput.clear();
+        this.usernameInput.clear();
+        this.oldPasswordInput.clear();
+        this.newPasswordInput.clear();
     }
 
     @Override

@@ -9,13 +9,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import view.Destroyable;
 import view.SFView;
 import view.StageManager;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class RegisterView extends SFView {
+public class RegisterView extends SFView implements Destroyable {
 
     private TextField emailInput;
     private TextField usernameInput;

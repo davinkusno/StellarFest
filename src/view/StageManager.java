@@ -45,7 +45,10 @@ public class StageManager {
 
         Scene scene = primaryStage.getScene();
         if (sceneViewMap.containsKey(scene)) {
-            sceneViewMap.get(scene).destroyView();
+            SFView oldView = sceneViewMap.get(scene);
+            if (oldView instanceof Destroyable) {
+                ((Destroyable) oldView).destroyView();
+            }
         }
 
         if (sfView instanceof Refreshable) {

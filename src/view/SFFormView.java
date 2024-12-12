@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 import java.lang.reflect.InvocationTargetException;
 
-public abstract class SFFormView extends SFView {
+public abstract class SFFormView extends SFView implements Destroyable {
 
     public SFFormView(StageManager stageManager) {
         super(stageManager);
