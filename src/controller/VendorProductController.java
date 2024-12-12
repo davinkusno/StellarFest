@@ -17,7 +17,7 @@ public class VendorProductController {
     public static List<VendorProduct> getAll() {
         List<VendorProduct> vendorProducts = new ArrayList<>();
 
-        String query = "SELECT * FROM vendor_product";
+        String query = "SELECT * FROM vendor_products";
         try (Results results = Connect.getInstance().executeQuery(query)) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
@@ -38,7 +38,7 @@ public class VendorProductController {
         }
 
         String placeholders = String.join(",", Collections.nCopies(ids.size(), "?"));
-        String query = "SELECT * FROM vendor_product WHERE id IN (" + placeholders + ")";
+        String query = "SELECT * FROM vendor_products WHERE id IN (" + placeholders + ")";
         try (Results results = Connect.getInstance().executeQuery(query, ids.toArray())) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
@@ -55,7 +55,7 @@ public class VendorProductController {
     public static List<VendorProduct> getForUser(long userId) {
         List<VendorProduct> vendorProducts = new ArrayList<>();
 
-        String query = "SELECT * FROM vendor_product WHERE vendor_id = ?";
+        String query = "SELECT * FROM vendor_products WHERE vendor_id = ?";
         try (Results results = Connect.getInstance().executeQuery(query, userId)) {
             ResultSet set = results.getResultSet();
             while (set.next()) {
@@ -70,7 +70,7 @@ public class VendorProductController {
     }
 
     public static boolean save(VendorProduct vendorProduct) {
-        String query = "INSERT INTO vendor_product (name, description, vendor_id) VALUES (?, ?, ?)";
+        String query = "INSERT INTO vendor_products (name, description, vendor_id) VALUES (?, ?, ?)";
         try {
             Connect.getInstance().executeUpdate(query, vendorProduct.getName(), vendorProduct.getDescription(), vendorProduct.getVendor().getId());
             return true;
