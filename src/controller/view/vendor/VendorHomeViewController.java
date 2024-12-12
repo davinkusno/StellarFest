@@ -4,6 +4,7 @@ import view.StageManager;
 import view.common.EditProfileView;
 import view.common.InvitationsView;
 import view.common.InvitedEventsView;
+import view.vendor.view.VendorProductsView;
 
 public class VendorHomeViewController {
 
@@ -16,7 +17,7 @@ public class VendorHomeViewController {
     }
 
     public static void handleMangeProductsRedirect() {
-
+        StageManager.getInstance().switchScene(VendorProductsView.class);
     }
 
     public static void handleEditProfileRedirect() {
