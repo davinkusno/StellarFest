@@ -87,7 +87,7 @@ public class EditEventName {
         return registerButton;
     }
 
-    protected HBox createNameField() {
+    private HBox createNameField() {
         HBox row = new HBox(10);
         row.setAlignment(Pos.CENTER);
 
@@ -96,6 +96,7 @@ public class EditEventName {
         row.getChildren().add(label);
 
         TextField textField = new TextField();
+        textField.setPrefWidth(200);
         textField.setText(this.event.getName());
         row.getChildren().add(textField);
         this.nameInput = textField;
