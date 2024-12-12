@@ -115,4 +115,14 @@ public class EventController {
 
         return event;
     }
+
+    public static boolean updateEvent(String name, LocalDate date, String location, String description, long id) {
+        String query = "UPDATE events SET name = ?, date = ?, location = ?, description = ? WHERE id = ?";
+        try {
+            Connect.getInstance().executeUpdate(query, name, date, location, description, id);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -55,6 +55,25 @@ public class InvitationController {
         return inviteIds;
     }
 
+    public static boolean save(Invitation invitation) {
+        String query = "INSERT INTO invitations (event_id, user_id) VALUES (?, ?)";
+        try {
+            Connect.getInstance().executeUpdate(query, invitation.getEvent().getId(), invitation.getUser().getId());
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean saveAll(List<Invitation> invitations) {
+        boolean success = true;
+        for (Invitation invitation : invitations) {
+            success = success && save(invitation);
+        }
+
+        return success;
+    }
+
     private static Invitation newInvitation(long id, long eventId, long userId) {
         Invitation invitation = new Invitation(id);
 

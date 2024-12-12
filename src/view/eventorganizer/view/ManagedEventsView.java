@@ -1,10 +1,15 @@
 package view.eventorganizer.view;
 
 import controller.view.eventogranizer.view.ManagedEventsViewController;
+import enums.Role;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.Event;
 import view.SFEventTableView;
@@ -35,13 +40,16 @@ public class ManagedEventsView extends SFEventTableView {
         borderPane.setCenter(eventTable);
 
         this.eventTable.setOnMouseClicked(event -> {
+            Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
             if (event.getClickCount() == 2) {
-                Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
                 if (selectedEvent != null) {
                     showEventDetailsWindow(selectedEvent);
                 }
             }
         });
+
+        HBox buttonContainer = this.createButtonContainer();
+        borderPane.setBottom(buttonContainer);
 
         Pane topBar = TopBar.getTopBar(EOHomeView.class);
         borderPane.setTop(topBar);
@@ -50,5 +58,64 @@ public class ManagedEventsView extends SFEventTableView {
     @Override
     public void refreshData() {
         ManagedEventsViewController.loadEvents(events);
+    }
+
+    private HBox createButtonContainer() {
+        HBox buttonContainer = new HBox(15);
+        buttonContainer.setAlignment(Pos.CENTER);
+        buttonContainer.setPadding(new Insets(20));
+
+        Button editNameButton = this.createEditNameButton();
+        buttonContainer.getChildren().add(editNameButton);
+
+        Button inviteVendorButton = this.createInviteVendorButton();
+        buttonContainer.getChildren().add(inviteVendorButton);
+
+        Button inviteGuestButton = this.createInviteGuestButton();
+        buttonContainer.getChildren().add(inviteGuestButton);
+
+        return buttonContainer;
+    }
+
+    private Button createEditNameButton() {
+        Button registerButton = new Button("Edit Event Name");
+        registerButton.setPrefWidth(200);
+
+        registerButton.setOnMouseClicked(e -> {
+            Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+            if (selectedEvent != null) {
+                new EditEventName(selectedEvent, this::refreshData).show();
+            }
+        });
+
+        return registerButton;
+    }
+
+    private Button createInviteVendorButton() {
+        Button registerButton = new Button("Invite Vendors");
+        registerButton.setPrefWidth(200);
+
+        registerButton.setOnMouseClicked(e -> {
+            Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+            if (selectedEvent != null) {
+                new EventInviter(selectedEvent, Role.VENDOR, this::refreshData).show();
+            }
+        });
+
+        return registerButton;
+    }
+
+    private Button createInviteGuestButton() {
+        Button registerButton = new Button("Invite Guests");
+        registerButton.setPrefWidth(200);
+
+        registerButton.setOnMouseClicked(e -> {
+            Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
+            if (selectedEvent != null) {
+                new EventInviter(selectedEvent, Role.GUEST, this::refreshData).show();
+            }
+        });
+
+        return registerButton;
     }
 }

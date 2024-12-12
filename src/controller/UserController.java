@@ -37,6 +37,25 @@ public class UserController {
         return users;
     }
 
+    public static List<User> getAllWithRole(Role role) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users WHERE role = ?";
+        try (Results results = Connect.getInstance().executeQuery(query, role.getRole())) {
+            ResultSet set = results.getResultSet();
+            while (set.next()) {
+                long id = set.getLong("id");
+                String email = set.getString("email");
+                String username = set.getString("username");
+
+                users.add(UserController.newUser(id, email, username, role));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return users;
+    }
+
     public static User getOne(long id) {
         String query = "SELECT * FROM users WHERE id = ?";
         try (Results results = Connect.getInstance().executeQuery(query, id)) {
