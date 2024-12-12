@@ -26,7 +26,7 @@ public class EditEventName {
         this.onComplete = onComplete;
 
         this.stage = new Stage();
-        stage.setTitle("Event Details");
+        stage.setTitle("Edit Event Name");
 
         this.prepareView();
     }
