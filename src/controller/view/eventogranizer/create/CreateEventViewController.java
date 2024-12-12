@@ -1,8 +1,11 @@
 package controller.view.eventogranizer.create;
 
+import controller.event.EventController;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import model.Event;
+import model.user.impl.EOUser;
 import util.AlertUtil;
 import view.StageManager;
 import view.eventorganizer.EOHomeView;
@@ -11,7 +14,7 @@ import java.time.LocalDate;
 
 public class CreateEventViewController {
 
-    public static void handleCreateEvent(TextField nameInput, DatePicker dateInput, TextField locationInput, TextArea descriptionInput) {
+    public static void handleCreateEvent(EOUser user, TextField nameInput, DatePicker dateInput, TextField locationInput, TextArea descriptionInput) {
         String name = nameInput.getText();
         LocalDate date = dateInput.getValue();
         String location = locationInput.getText();
@@ -54,7 +57,7 @@ public class CreateEventViewController {
             return;
         }
 
-        boolean saved = saveEvent(name, date, location, description);
+        boolean saved = saveEvent(user, name, date, location, description);
         if (!saved) {
             AlertUtil.showError("Event creation failed", "An error occurred while creating the event");
             return;
@@ -69,9 +72,9 @@ public class CreateEventViewController {
         return date.isAfter(LocalDate.now());
     }
 
-    private static boolean saveEvent(String name, LocalDate date, String location, String description) {
-        // Save event to database
-        return true;
+    private static boolean saveEvent(EOUser user, String name, LocalDate date, String location, String description) {
+        Event event = EventController.newEvent(0, name, date, location, description, user.getId());
+        return EventController.save(event);
     }
 
 }

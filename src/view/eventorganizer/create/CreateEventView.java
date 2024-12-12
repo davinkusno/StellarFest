@@ -1,6 +1,7 @@
 package view.eventorganizer.create;
 
 import controller.view.eventogranizer.create.CreateEventViewController;
+import datastore.UserDatastore;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -8,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import model.user.User;
+import model.user.impl.EOUser;
 import view.SFFormView;
 import view.StageManager;
 import view.component.TopBar;
@@ -89,7 +92,8 @@ public class CreateEventView extends SFFormView {
         registerButton.setPrefWidth(200);
 
         registerButton.setOnMouseClicked(e -> {
-            CreateEventViewController.handleCreateEvent(this.nameInput, this.dateInput, this.locationInput, this.descriptionInput);
+            User user = UserDatastore.getInstance().getCurrentUser();
+            CreateEventViewController.handleCreateEvent((EOUser) user, this.nameInput, this.dateInput, this.locationInput, this.descriptionInput);
         });
 
         return registerButton;

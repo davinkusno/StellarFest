@@ -105,6 +105,26 @@ public class EventController {
         return events;
     }
 
+    public static boolean updateEvent(String name, LocalDate date, String location, String description, long id) {
+        String query = "UPDATE events SET name = ?, date = ?, location = ?, description = ? WHERE id = ?";
+        try {
+            Connect.getInstance().executeUpdate(query, name, date, location, description, id);
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean save(Event event) {
+        String query = "INSERT INTO events (name, date, location, description, organizer_id) VALUES (?, ?, ?, ?, ?)";
+        try {
+            Connect.getInstance().executeUpdate(query, event.getName(), event.getDate(), event.getLocation(), event.getDescription(), event.getOrganizer().getId());
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static Event eventFromResultSet(ResultSet set) throws SQLException {
         long id = set.getLong("id");
         String name = set.getString("name");
@@ -116,7 +136,7 @@ public class EventController {
         return EventController.newEvent(id, name, date, location, description, organizerId);
     }
 
-    private static Event newEvent(long id, String name, LocalDate date, String location, String description, long organizerId) {
+    public static Event newEvent(long id, String name, LocalDate date, String location, String description, long organizerId) {
         Event event = new Event(id, name, date, location, description);
 
         JoinField<EOUser> organizer = new JoinField<>(organizerId, () -> (EOUser) UserController.getOne(organizerId));
@@ -141,15 +161,5 @@ public class EventController {
         event.setAttendees(attendeeUsers);
 
         return event;
-    }
-
-    public static boolean updateEvent(String name, LocalDate date, String location, String description, long id) {
-        String query = "UPDATE events SET name = ?, date = ?, location = ?, description = ? WHERE id = ?";
-        try {
-            Connect.getInstance().executeUpdate(query, name, date, location, description, id);
-            return true;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
