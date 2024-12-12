@@ -8,13 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import view.SFView;
+import view.SFFormView;
 import view.StageManager;
 
-public class LoginView extends SFView {
+public class LoginView extends SFFormView {
 
     private TextField emailInput;
     private PasswordField passwordInput;
@@ -39,11 +38,11 @@ public class LoginView extends SFView {
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
         formContainer.getChildren().add(titleLabel);
 
-        HBox emailRow = this.createEmailInput();
-        formContainer.getChildren().add(emailRow);
+        FormRow emailRow = this.createTextField("Email", TextField.class, formContainer);
+        this.emailInput = emailRow.getTextField();
 
-        HBox passwordRow = this.createPasswordInput();
-        formContainer.getChildren().add(passwordRow);
+        FormRow passwordRow = this.createTextField("Password", PasswordField.class, formContainer);
+        this.passwordInput = (PasswordField) passwordRow.getTextField();
 
         Button registerButton = this.createLoginButton();
         formContainer.getChildren().add(registerButton);
@@ -88,32 +87,5 @@ public class LoginView extends SFView {
         return registerRedirectLabel;
     }
 
-    private HBox createEmailInput() {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Email");
-        label.setMinWidth(100);
-        row.getChildren().add(label);
-
-        this.emailInput = new TextField();
-        row.getChildren().add(this.emailInput);
-
-        return row;
-    }
-
-    private HBox createPasswordInput() {
-        HBox row = new HBox(10);
-        row.setAlignment(Pos.CENTER);
-
-        Label label = new Label("Password");
-        label.setMinWidth(100);
-        row.getChildren().add(label);
-
-        this.passwordInput = new PasswordField();
-        row.getChildren().add(this.passwordInput);
-
-        return row;
-    }
 
 }
