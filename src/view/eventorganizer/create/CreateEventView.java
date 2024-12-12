@@ -13,6 +13,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import view.SFFormView;
 import view.StageManager;
+import view.component.TopBar;
+import view.eventorganizer.EOHomeView;
 
 public class CreateEventView extends SFFormView {
 
@@ -58,6 +60,9 @@ public class CreateEventView extends SFFormView {
 
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
+
+        Pane topBar = TopBar.getTopBar(EOHomeView.class);
+        borderPane.setTop(topBar);
     }
 
     @Override
@@ -105,16 +110,17 @@ public class CreateEventView extends SFFormView {
     }
 
     private HBox createDatePicker() {
-        HBox datePickerContainer = new HBox(15);
-        datePickerContainer.setAlignment(Pos.CENTER);
+        HBox row = new HBox(15);
+        row.setAlignment(Pos.CENTER);
 
-        Label dateLabel = new Label("Date");
-        datePickerContainer.getChildren().add(dateLabel);
+        Label label = new Label("Date");
+        label.setMinWidth(100);
+        row.getChildren().add(label);
 
         DatePicker datePicker = new DatePicker();
-        datePickerContainer.getChildren().add(datePicker);
+        row.getChildren().add(datePicker);
         this.dateInput = datePicker;
 
-        return datePickerContainer;
+        return row;
     }
 }

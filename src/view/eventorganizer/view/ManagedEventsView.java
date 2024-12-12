@@ -9,8 +9,8 @@ import javafx.scene.layout.Pane;
 import model.Event;
 import view.SFEventTableView;
 import view.StageManager;
-import view.admin.AdminHomeView;
 import view.component.TopBar;
+import view.eventorganizer.EOHomeView;
 
 public class ManagedEventsView extends SFEventTableView {
 
@@ -41,7 +41,7 @@ public class ManagedEventsView extends SFEventTableView {
             }
         });
 
-        Pane topBar = TopBar.getTopBar(AdminHomeView.class);
+        Pane topBar = TopBar.getTopBar(EOHomeView.class);
         borderPane.setTop(topBar);
     }
 
