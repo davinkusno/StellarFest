@@ -3,10 +3,7 @@ package view.eventorganizer.create;
 import controller.view.eventogranizer.create.CreateEventViewController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,7 +18,7 @@ public class CreateEventView extends SFFormView {
     private TextField nameInput;
     private DatePicker dateInput;
     private TextField locationInput;
-    private TextField descriptionInput;
+    private TextArea descriptionInput;
 
     public CreateEventView(StageManager stageManager) {
         super(stageManager);
@@ -52,8 +49,8 @@ public class CreateEventView extends SFFormView {
         FormRow locationRow = this.createTextField("Location", TextField.class, formContainer);
         this.locationInput = locationRow.getTextField();
 
-        FormRow descriptionRow = this.createTextField("Description", TextField.class, formContainer);
-        this.descriptionInput = descriptionRow.getTextField();
+        FormRowB descriptionRow = this.createTextArea("Description", formContainer);
+        this.descriptionInput = descriptionRow.getTextArea();
 
         HBox buttonContainer = this.createButtonContainer();
         formContainer.getChildren().add(buttonContainer);

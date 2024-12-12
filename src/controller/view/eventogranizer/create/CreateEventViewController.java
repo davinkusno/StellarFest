@@ -1,6 +1,7 @@
 package controller.view.eventogranizer.create;
 
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import util.AlertUtil;
 import view.StageManager;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 
 public class CreateEventViewController {
 
-    public static void handleCreateEvent(TextField nameInput, DatePicker dateInput, TextField locationInput, TextField descriptionInput) {
+    public static void handleCreateEvent(TextField nameInput, DatePicker dateInput, TextField locationInput, TextArea descriptionInput) {
         String name = nameInput.getText();
         LocalDate date = dateInput.getValue();
         String location = locationInput.getText();

@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,7 +21,7 @@ public class CreateVendorProduct {
     private final Stage stage;
 
     private TextField nameInput;
-    private TextField descriptionInput;
+    private TextArea descriptionInput;
 
     public CreateVendorProduct(VendorUser user, Callable onComplete) {
         this.user = user;
@@ -117,10 +118,10 @@ public class CreateVendorProduct {
         label.setMinWidth(100);
         row.getChildren().add(label);
 
-        TextField textField = new TextField();
-        textField.setPrefWidth(200);
-        row.getChildren().add(textField);
-        this.descriptionInput = textField;
+        TextArea textArea = new TextArea();
+        textArea.setPrefWidth(200);
+        row.getChildren().add(textArea);
+        this.descriptionInput = textArea;
 
         return row;
     }
