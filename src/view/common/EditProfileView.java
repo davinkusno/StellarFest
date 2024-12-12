@@ -66,12 +66,16 @@ public class EditProfileView extends SFView implements Refreshable {
     }
 
     private Button createSaveButton() {
-        Button registerButton = new Button("Register");
+        Button registerButton = new Button("Save");
         registerButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px;");
         registerButton.setPrefWidth(200);
 
         registerButton.setOnMouseClicked(e -> {
             EditProfileViewController.handleEditProfile(this.emailInput, this.usernameInput, this.oldPasswordInput, this.newPasswordInput);
+
+            User currentUser = UserDatastore.getInstance().getCurrentUser();
+            assert currentUser != null;
+            StageManager.getInstance().switchScene(currentUser.getHomeView());
         });
 
         return registerButton;
