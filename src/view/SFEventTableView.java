@@ -112,6 +112,8 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
                 createDetailRow("Username:", organizer.getUsername()),
                 createDetailRow("Email:", organizer.getEmail())
         );
+        organizerDetails.setPadding(new Insets(0, 0, 0, 20));
+        organizerDetails.setStyle("-fx-border-color: #000000; -fx-border-width: 1px;");
 
         HBox row = new HBox(10);
         row.getChildren().addAll(label, organizerDetails);
@@ -132,11 +134,17 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
                 .collect(Collectors.toList());
 
         for (User vendor : vendors) {
-            vendorDetails.getChildren().addAll(
+            VBox vendorDetail = new VBox(5);
+            vendorDetail.setPadding(new Insets(0, 0, 0, 20));
+            vendorDetail.setStyle("-fx-border-color: #000000; -fx-border-width: 1px;");
+
+            vendorDetail.getChildren().addAll(
                     createDetailRow("ID:", String.valueOf(vendor.getId())),
                     createDetailRow("Username:", vendor.getUsername()),
                     createDetailRow("Email:", vendor.getEmail())
             );
+
+            vendorDetails.getChildren().add(vendorDetail);
         }
 
         VBox guestDetails = new VBox(5);
@@ -149,11 +157,17 @@ public abstract class SFEventTableView extends SFView implements Refreshable {
                 .collect(Collectors.toList());
 
         for (User guest : guests) {
+            VBox guestDetail = new VBox(5);
+            guestDetail.setPadding(new Insets(0, 0, 0, 20));
+            guestDetail.setStyle("-fx-border-color: #000000; -fx-border-width: 1px;");
+
             guestDetails.getChildren().addAll(
                     createDetailRow("ID:", String.valueOf(guest.getId())),
                     createDetailRow("Username:", guest.getUsername()),
                     createDetailRow("Email:", guest.getEmail())
             );
+
+            guestDetails.getChildren().add(guestDetail);
         }
 
         HBox row = new HBox(10);
