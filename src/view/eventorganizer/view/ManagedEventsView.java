@@ -16,6 +16,10 @@ import view.eventorganizer.EOHomeView;
 
 public class ManagedEventsView extends SFEventTableView {
 
+    private Button editEventNameButton;
+    private Button inviteVendorButton;
+    private Button inviteGuestButton;
+
     public ManagedEventsView(StageManager stageManager) {
         super(stageManager);
         BorderPane root = new BorderPane();
@@ -40,6 +44,12 @@ public class ManagedEventsView extends SFEventTableView {
                     showEventDetailsWindow(selectedEvent);
                 }
             }
+
+            if (selectedEvent != null) {
+                editEventNameButton.setDisable(false);
+                inviteVendorButton.setDisable(false);
+                inviteGuestButton.setDisable(false);
+            }
         });
 
         HBox buttonContainer = this.createButtonContainer();
@@ -52,6 +62,9 @@ public class ManagedEventsView extends SFEventTableView {
     @Override
     public void refreshData() {
         ManagedEventsViewController.loadEvents(events);
+        editEventNameButton.setDisable(true);
+        inviteVendorButton.setDisable(true);
+        inviteGuestButton.setDisable(true);
     }
 
     private HBox createButtonContainer() {
@@ -72,44 +85,47 @@ public class ManagedEventsView extends SFEventTableView {
     }
 
     private Button createEditNameButton() {
-        Button registerButton = new Button("Edit Event Name");
-        registerButton.setPrefWidth(200);
+        this.editEventNameButton = new Button("Edit Event Name");
+        editEventNameButton.setPrefWidth(200);
+        editEventNameButton.setDisable(true);
 
-        registerButton.setOnMouseClicked(e -> {
+        editEventNameButton.setOnMouseClicked(e -> {
             Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
                 new EditEventName(selectedEvent, this::refreshData).show();
             }
         });
 
-        return registerButton;
+        return editEventNameButton;
     }
 
     private Button createInviteVendorButton() {
-        Button registerButton = new Button("Invite Vendors");
-        registerButton.setPrefWidth(200);
+        this.inviteVendorButton = new Button("Invite Vendors");
+        inviteVendorButton.setPrefWidth(200);
+        inviteVendorButton.setDisable(true);
 
-        registerButton.setOnMouseClicked(e -> {
+        inviteVendorButton.setOnMouseClicked(e -> {
             Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
                 new EventInviter(selectedEvent, Role.VENDOR, this::refreshData).show();
             }
         });
 
-        return registerButton;
+        return inviteVendorButton;
     }
 
     private Button createInviteGuestButton() {
-        Button registerButton = new Button("Invite Guests");
-        registerButton.setPrefWidth(200);
+        this.inviteGuestButton = new Button("Invite Guests");
+        inviteGuestButton.setPrefWidth(200);
+        inviteGuestButton.setDisable(true);
 
-        registerButton.setOnMouseClicked(e -> {
+        inviteGuestButton.setOnMouseClicked(e -> {
             Event selectedEvent = eventTable.getSelectionModel().getSelectedItem();
             if (selectedEvent != null) {
                 new EventInviter(selectedEvent, Role.GUEST, this::refreshData).show();
             }
         });
 
-        return registerButton;
+        return inviteGuestButton;
     }
 }

@@ -19,7 +19,6 @@ import util.Callable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EventInviter {
 
@@ -30,8 +29,6 @@ public class EventInviter {
     private final ObservableList<User> users;
     private final Stage stage;
     private final List<User> checkedUsers;
-
-    private TableView<User> tableView;
 
     public EventInviter(Event event, Role role, Callable onComplete) {
         this.event = event;
@@ -65,7 +62,7 @@ public class EventInviter {
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
         container.getChildren().add(titleLabel);
 
-        this.tableView = createUsersTable();
+        TableView<User> tableView = createUsersTable();
         container.getChildren().add(tableView);
 
         root.setCenter(container);
