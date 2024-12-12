@@ -2,12 +2,9 @@ package view.eventorganizer.view;
 
 import controller.view.eventogranizer.view.ManagedEventsViewController;
 import enums.Role;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -18,9 +15,6 @@ import view.component.TopBar;
 import view.eventorganizer.EOHomeView;
 
 public class ManagedEventsView extends SFEventTableView {
-
-    private final ObservableList<Event> events = FXCollections.observableArrayList();
-    private TableView<Event> eventTable;
 
     public ManagedEventsView(StageManager stageManager) {
         super(stageManager);
