@@ -3,15 +3,14 @@ package view.admin;
 import controller.view.admin.AdminHomeViewController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import view.SFView;
+import view.SFHomeView;
 import view.StageManager;
 import view.component.TopBar;
 
-public class AdminHomeView extends SFView {
+public class AdminHomeView extends SFHomeView {
 
     public AdminHomeView(StageManager stageManager) {
         super(stageManager);
@@ -29,14 +28,11 @@ public class AdminHomeView extends SFView {
         formContainer.setPadding(new Insets(20));
         formContainer.setAlignment(Pos.CENTER);
 
-        Button manageEventButton = this.createManageEventButton();
-        formContainer.getChildren().add(manageEventButton);
-
-        Button manageUserButton = this.createManageUserButton();
-        formContainer.getChildren().add(manageUserButton);
-
-        Button editProfileButton = this.createEditProfileButton();
-        formContainer.getChildren().add(editProfileButton);
+        formContainer.getChildren().addAll(
+                this.createRedirectButton("Manage Events", AdminHomeViewController::handleManageEventRedirect),
+                this.createRedirectButton("Manage Users", AdminHomeViewController::handleManageUserRedirect),
+                this.createRedirectButton("Edit Profile", AdminHomeViewController::handleEditProfile)
+        );
 
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
@@ -48,39 +44,6 @@ public class AdminHomeView extends SFView {
     @Override
     public void destroyView() {
         // No cleanup required
-    }
-
-    private Button createManageEventButton() {
-        Button button = new Button("Manage Events");
-        button.setPrefWidth(200);
-
-        button.setOnMouseClicked(e -> {
-            AdminHomeViewController.handleManageEventRedirect();
-        });
-
-        return button;
-    }
-
-    private Button createManageUserButton() {
-        Button button = new Button("Manage Users");
-        button.setPrefWidth(200);
-
-        button.setOnMouseClicked(e -> {
-            AdminHomeViewController.handleManageUserRedirect();
-        });
-
-        return button;
-    }
-
-    private Button createEditProfileButton() {
-        Button button = new Button("Edit Profile");
-        button.setPrefWidth(200);
-
-        button.setOnMouseClicked(e -> {
-            AdminHomeViewController.handleEditProfile();
-        });
-
-        return button;
     }
 
 }
