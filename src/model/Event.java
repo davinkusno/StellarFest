@@ -5,14 +5,14 @@ import model.join.JoinFields;
 import model.user.User;
 import model.user.impl.EOUser;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Event {
 
     private final long id;
     private String name;
-    private ZonedDateTime date;
+    private LocalDate date;
     private String location;
     private String description;
 
@@ -24,7 +24,7 @@ public class Event {
         this.id = id;
     }
 
-    public Event(long id, String name, ZonedDateTime date, String location, String description) {
+    public Event(long id, String name, LocalDate date, String location, String description) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -44,11 +44,11 @@ public class Event {
         this.name = name;
     }
 
-    public ZonedDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(ZonedDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

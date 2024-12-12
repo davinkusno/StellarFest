@@ -12,7 +12,7 @@ import model.user.User;
 import model.user.impl.EOUser;
 
 import java.sql.ResultSet;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +27,7 @@ public class EventController {
             while (set.next()) {
                 long id = set.getLong("id");
                 String name = set.getString("name");
-                ZonedDateTime date = set.getObject("date", ZonedDateTime.class);
+                LocalDate date = set.getObject("date", LocalDate.class);
                 String location = set.getString("location");
                 String description = set.getString("description");
 
@@ -48,7 +48,7 @@ public class EventController {
             ResultSet set = results.getResultSet();
             if (set.next()) {
                 String name = set.getString("name");
-                ZonedDateTime date = set.getObject("date", ZonedDateTime.class);
+                LocalDate date = set.getObject("date", LocalDate.class);
                 String location = set.getString("location");
                 String description = set.getString("description");
 
@@ -76,7 +76,7 @@ public class EventController {
             while (set.next()) {
                 long id = set.getLong("id");
                 String name = set.getString("name");
-                ZonedDateTime date = set.getObject("date", ZonedDateTime.class);
+                LocalDate date = set.getObject("date", LocalDate.class);
                 String location = set.getString("location");
                 String description = set.getString("description");
 
@@ -91,7 +91,7 @@ public class EventController {
         return events;
     }
 
-    private static Event newEvent(long id, String name, ZonedDateTime date, String location, String description, long organizerId) {
+    private static Event newEvent(long id, String name, LocalDate date, String location, String description, long organizerId) {
         Event event = new Event(id, name, date, location, description);
 
         JoinField<EOUser> organizer = new JoinField<>(organizerId, () -> (EOUser) UserController.getOne(organizerId));
