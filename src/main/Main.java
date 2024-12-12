@@ -13,6 +13,7 @@ import view.common.InvitedEventsView;
 import view.eventorganizer.EOHomeView;
 import view.eventorganizer.create.CreateEventView;
 import view.eventorganizer.view.ManagedEventsView;
+import view.guest.GuestHomeView;
 import view.vendor.VendorHomeView;
 
 public class Main extends Application {
@@ -45,8 +46,11 @@ public class Main extends Application {
         this.stageManager.addScene(new CreateEventView(stageManager));
         this.stageManager.addScene(new ManagedEventsView(stageManager));
 
-        this.stageManager.addScene(new VendorHomeView(stageManager));
         this.stageManager.addScene(new InvitedEventsView(stageManager));
+
+        this.stageManager.addScene(new VendorHomeView(stageManager));
+
+        this.stageManager.addScene(new GuestHomeView(stageManager));
     }
 
 }
