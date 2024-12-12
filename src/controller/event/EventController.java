@@ -88,22 +88,21 @@ public class EventController {
         return events;
     }
 
-    public static Event getForAttendee(long attendeeId) {
-        String query = "SELECT * FROM events e JOIN event_attendees ea ON e.id = ea.event_id WHERE ea.user_id = ?";
-        System.out.println("Query: " + query);
-        System.out.println("Attendee ID: " + attendeeId);
+    public static List<Event> getForAttendee(long attendeeId) {
+        List<Event> events = new ArrayList<>();
 
+        String query = "SELECT * FROM events e JOIN event_attendees ea ON e.id = ea.event_id WHERE ea.user_id = ?";
         try (Results results = Connect.getInstance().executeQuery(query, attendeeId)) {
             ResultSet set = results.getResultSet();
             if (set.next()) {
-                System.out.println("Found event");
-                return eventFromResultSet(set);
+                Event event = eventFromResultSet(set);
+                events.add(event);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        return null;
+        return events;
     }
 
     private static Event eventFromResultSet(ResultSet set) throws SQLException {
