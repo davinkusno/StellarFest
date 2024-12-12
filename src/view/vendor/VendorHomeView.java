@@ -1,6 +1,5 @@
 package view.vendor;
 
-import controller.view.eventogranizer.EOHomeViewController;
 import controller.view.vendor.VendorHomeViewController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -41,11 +40,6 @@ public class VendorHomeView extends SFHomeView {
 
         Pane topBar = TopBar.getTopBar(null);
         borderPane.setTop(topBar);
-    }
-
-    @Override
-    public void destroyView() {
-
     }
 
 }

@@ -41,9 +41,4 @@ public class GuestHomeView extends SFHomeView {
         borderPane.setTop(topBar);
     }
 
-    @Override
-    public void destroyView() {
-
-    }
-
 }

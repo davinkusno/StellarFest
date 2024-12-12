@@ -41,9 +41,4 @@ public class AdminHomeView extends SFHomeView {
         borderPane.setTop(topBar);
     }
 
-    @Override
-    public void destroyView() {
-        // No cleanup required
-    }
-
 }

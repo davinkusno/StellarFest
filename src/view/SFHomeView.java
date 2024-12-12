@@ -19,4 +19,9 @@ public abstract class SFHomeView extends SFView {
 
         return button;
     }
+
+    @Override
+    public void destroyView() {
+        // No cleanup required
+    }
 }
