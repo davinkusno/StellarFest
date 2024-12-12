@@ -2,6 +2,7 @@ package model.user.impl;
 
 import model.user.User;
 import view.SFView;
+import view.vendor.VendorHomeView;
 
 public class VendorUser extends User {
     public VendorUser(long id) {
@@ -14,6 +15,6 @@ public class VendorUser extends User {
 
     @Override
     public Class<? extends SFView> getHomeView() {
-        return null;
+        return VendorHomeView.class;
     }
 }
