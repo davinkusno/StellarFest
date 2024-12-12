@@ -11,13 +11,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.user.User;
 import model.user.impl.EOUser;
-import view.Destroyable;
 import view.SFFormView;
 import view.StageManager;
 import view.component.TopBar;
 import view.eventorganizer.EOHomeView;
 
-public class CreateEventView extends SFFormView implements Destroyable {
+public class CreateEventView extends SFFormView {
 
     private TextField nameInput;
     private DatePicker dateInput;
