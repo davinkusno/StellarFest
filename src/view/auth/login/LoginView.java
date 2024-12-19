@@ -4,6 +4,7 @@ import controller.view.auth.LoginViewController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -47,8 +48,8 @@ public class LoginView extends SFFormView {
         Button registerButton = this.createLoginButton();
         formContainer.getChildren().add(registerButton);
 
-        Label loginRedirectLabel = this.createRegisterRedirectLabel();
-        formContainer.getChildren().add(loginRedirectLabel);
+        Hyperlink loginRedirectLink = this.createRegisterRedirectLink();
+        formContainer.getChildren().add(loginRedirectLink);
 
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
@@ -86,6 +87,24 @@ public class LoginView extends SFFormView {
 
         return registerRedirectLabel;
     }
+    
+    private Hyperlink createRegisterRedirectLink() {
+        Hyperlink registerRedirectLink = new Hyperlink("Don't have an account? Register");
+        registerRedirectLink.setStyle("-fx-text-fill: #2196F3; -fx-font-size: 14px;");
 
+        registerRedirectLink.setOnAction(e -> {
+        	LoginViewController.handleRegisterRedirect();
+        });
+
+        registerRedirectLink.setOnMouseEntered(e -> {
+            registerRedirectLink.setStyle("-fx-text-fill: #1976D2; -fx-font-size: 14px; -fx-underline: true;");
+        });
+
+        registerRedirectLink.setOnMouseExited(e -> {
+            registerRedirectLink.setStyle("-fx-text-fill: #2196F3; -fx-font-size: 14px;");
+        });
+
+        return registerRedirectLink;
+    }
 
 }

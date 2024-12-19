@@ -57,8 +57,8 @@ public class RegisterView extends SFFormView {
         Button registerButton = this.createRegisterButton();
         formContainer.getChildren().add(registerButton);
 
-        Label loginRedirectLabel = this.createLoginRedirectLabel();
-        formContainer.getChildren().add(loginRedirectLabel);
+        Hyperlink loginRedirectLink = this.createLoginRedirectLink();
+        formContainer.getChildren().add(loginRedirectLink);
 
         BorderPane borderPane = (BorderPane) root;
         borderPane.setCenter(formContainer);
@@ -84,22 +84,6 @@ public class RegisterView extends SFFormView {
         return registerButton;
     }
 
-    private Label createLoginRedirectLabel() {
-        Label loginRedirectLabel = new Label("Already have an account? Login");
-        loginRedirectLabel.setStyle("-fx-text-fill: #2196F3; -fx-font-size: 14px;");
-        loginRedirectLabel.setPrefWidth(200);
-
-        loginRedirectLabel.setOnMouseClicked(e -> {
-            RegisterViewController.handleLoginRedirect();
-        });
-
-        loginRedirectLabel.setOnMouseEntered(e -> {
-            loginRedirectLabel.setStyle("-fx-text-fill: #1976D2; -fx-font-size: 14px; -fx-underline: true;");
-        });
-
-        return loginRedirectLabel;
-    }
-
     private HBox createRoleSelector() {
         HBox row = new HBox(10);
         row.setAlignment(Pos.CENTER);
@@ -114,6 +98,25 @@ public class RegisterView extends SFFormView {
         row.getChildren().add(this.roleSelector);
 
         return row;
+    }
+
+    private Hyperlink createLoginRedirectLink() {
+        Hyperlink loginRedirectLink = new Hyperlink("Already have an account? Login");
+        loginRedirectLink.setStyle("-fx-text-fill: #2196F3; -fx-font-size: 14px;");
+
+        loginRedirectLink.setOnAction(e -> {
+            RegisterViewController.handleLoginRedirect();
+        });
+
+        loginRedirectLink.setOnMouseEntered(e -> {
+            loginRedirectLink.setStyle("-fx-text-fill: #1976D2; -fx-font-size: 14px; -fx-underline: true;");
+        });
+
+        loginRedirectLink.setOnMouseExited(e -> {
+            loginRedirectLink.setStyle("-fx-text-fill: #2196F3; -fx-font-size: 14px;");
+        });
+
+        return loginRedirectLink;
     }
 
 }
