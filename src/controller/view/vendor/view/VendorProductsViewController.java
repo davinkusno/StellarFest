@@ -1,9 +1,9 @@
 package controller.view.vendor.view;
 
+import controller.VendorProductController;
 import javafx.collections.ObservableList;
 import model.VendorProduct;
 import model.user.User;
-import model.user.impl.VendorUser;
 
 import java.util.List;
 
@@ -13,11 +13,7 @@ public class VendorProductsViewController {
         vendorProducts.clear();
 
         // Alternative implementation
-//        List<VendorProduct> products = VendorProductController.getForUser(user.getId());
-//        vendorProducts.addAll(products);
-
-        VendorUser vendorUser = (VendorUser) user;
-        List<VendorProduct> products = vendorUser.getVendorProducts().getValue();
+        List<VendorProduct> products = VendorProductController.getForUser(user.getId());
         vendorProducts.addAll(products);
     }
 
