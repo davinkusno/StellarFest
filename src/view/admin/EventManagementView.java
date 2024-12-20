@@ -1,7 +1,11 @@
 package view.admin;
 
 import controller.view.admin.EventManagementViewController;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import model.Event;
 import view.SFEventTableView;
@@ -35,6 +39,16 @@ public class EventManagementView extends SFEventTableView {
                 }
             }
         });
+        
+        Button deleteButton = new Button("Delete Selected Event");
+        deleteButton.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 14px;");
+        deleteButton.setOnAction(e -> EventManagementViewController.handleDeleteSelectedEvent(eventTable, events));
+
+        HBox buttonContainer = new HBox(deleteButton);
+        buttonContainer.setAlignment(Pos.CENTER);
+        buttonContainer.setPadding(new Insets(10));
+        
+        borderPane.setBottom(buttonContainer);
 
         Pane topBar = TopBar.getTopBar(AdminHomeView.class);
         borderPane.setTop(topBar);
