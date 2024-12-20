@@ -94,7 +94,7 @@ public class EventController {
         String query = "SELECT * FROM events e JOIN event_attendees ea ON e.id = ea.event_id WHERE ea.user_id = ?";
         try (Results results = Connect.getInstance().executeQuery(query, attendeeId)) {
             ResultSet set = results.getResultSet();
-            if (set.next()) {
+            while (set.next()) {
                 Event event = eventFromResultSet(set);
                 events.add(event);
             }
